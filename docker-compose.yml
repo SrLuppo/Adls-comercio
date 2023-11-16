@@ -1,0 +1,50 @@
+version: "3.3"
+services:
+  php:
+    build: ./.docker/php
+    container_name: novo-php
+    entrypoint: ./.docker/entrypoint.sh
+    environment:
+      - COMPOSER_MEMORY_LIMIT=2G
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - .:/var/www:cached
+    networks:
+      - novo-network
+    depends_on:
+      - db
+  web:
+    build: ./.docker/nginx
+    container_name: novo-web
+    tty: true
+    ports:
+      - "90:80"
+    volumes:
+      - .:/var/www:cached
+    networks:
+      - novo-network
+    depends_on:
+      - php
+      - db
+  db:
+    build: .docker/mysql
+    command: --innodb-use-native-aio=0 --default-authentication-plugin=mysql_native_password
+    container_name: novo-db
+    tty: true
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbnovodata:/var/lib/mysql
+      - ./.docker/mysql/scripts:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - novo-network
+
+networks:
+  novo-network:
+    driver: bridge
+
+volumes:
+  dbnovodata:
+    driver: local
