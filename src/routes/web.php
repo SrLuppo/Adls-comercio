@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::get('/layout-all', function () {
+    return view('layout-all');
 });
 
 Route::get('/', function () {
-    return view('linux');
+    return view('index');
 });
