@@ -1,4 +1,4 @@
-FROM php:7.3.19-fpm-alpine3.12
+FROM php:8.0-fpm-alpine3.12
 
 RUN apk add --no-cache shadow \
                        openssl \
