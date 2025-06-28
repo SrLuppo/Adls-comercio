@@ -17,7 +17,7 @@ Route::get('/layout-all', function () {
     return view('layout-all');
 });
 
-Route::get('/', function () {
+Route::get('/Home', function () {
     return view('index');
 });
 Route::get('/test-db-connection', function () {
