@@ -205,7 +205,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Nome do usuario</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"> {{ Session::get('user.name') ?? Session::get('user.email') }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -248,11 +248,14 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+              <form method="POST" action="{{ route('logout') }}" class="dropdown-item p-0 m-0 border-0 bg-transparent">
+                @csrf
+                <button type="submit" class="btn btn-danger w-100 text-start d-flex align-items-center">
+                  <i class="bi bi-box-arrow-right me-2"></i>
+                  <span>Sair</span>
+                </button>
+              </form>
+            </li>           
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
@@ -262,6 +265,9 @@
 
   </header><!-- End Header -->
   
+  <!-- ======= Main Content ======= -->
+  @yield('content')
+  <!-- End Main Content -->
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

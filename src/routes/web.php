@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,18 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/layout-all', function () {
-    return view('layout-all');
+// Rotas de autenticação
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Rotas protegidas
+Route::middleware(['auth'])->group(function () {
+    Route::get('/index', [AuthController::class, 'Home'])->name('Home');
 });
 
-Route::get('/Home', function () {
-    return view('index');
-});
-Route::get('/test-db-connection', function () {
-    try {
-        DB::connection()->getPdo();
-        return "Conexão com o banco de dados bem-sucedida!";
-    } catch (\Exception $e) {
-        return "Não foi possível conectar ao banco de dados. Erro: " . $e->getMessage();
-    }
-});
+// Route::get('/Home', function () {
+//     return view('index');
+// });
+
+// Route::get('/layout-all', function () {
+//     return view('layout-all');
+// });
+// Route::get('/test-db-connection', function () {
+//     try {
+//         DB::connection()->getPdo();
+//         return "Conexão com o banco de dados bem-sucedida!";
+//     } catch (\Exception $e) {
+//         return "Não foi possível conectar ao banco de dados. Erro: " . $e->getMessage();
+//     }
+// });
