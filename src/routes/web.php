@@ -20,3 +20,11 @@ Route::get('/layout-all', function () {
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/test-db-connection', function () {
+    try {
+        DB::connection()->getPdo();
+        return "Conexão com o banco de dados bem-sucedida!";
+    } catch (\Exception $e) {
+        return "Não foi possível conectar ao banco de dados. Erro: " . $e->getMessage();
+    }
+});
