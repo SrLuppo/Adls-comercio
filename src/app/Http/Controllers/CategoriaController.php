@@ -89,3 +89,4 @@ class CategoriaController extends Controller
         return redirect()->route('categorias.index')->with('success', 'Categoria excluída com sucesso!');
     }
 }
+ 

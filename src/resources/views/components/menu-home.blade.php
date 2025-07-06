@@ -114,6 +114,11 @@
             </a>
           </li>
           <li>
+            <a href="{{ route('tipos-pagamento.index') }}">
+              <i class="bi bi-circle"></i><span>Tipos de Pagamento</span>
+            </a>
+          </li>
+          <li>
             <a href="{{ route('usuarios.index') }}">
               <i class="bi bi-circle"></i><span>Usuários</span>
             </a>
@@ -122,10 +127,21 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-cash-coin"></i>
-          <span>Vendas</span>
+        <a class="nav-link collapsed" data-bs-target="#vendas-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-cash-coin"></i><span>Vendas</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="vendas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('pdv.index') }}">
+              <i class="bi bi-circle"></i><span>PDV</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('vendas.index') }}">
+              <i class="bi bi-circle"></i><span>Visualizar Vendas</span>
+            </a>
+          </li>
+        </ul>
       </li>
 
       {{--  <li class="nav-item">
@@ -168,6 +184,19 @@
           </li>
         </ul>
       </li><!-- End Charts Nav -->
+
+      {{--  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#admin-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-shield-lock"></i><span>Administrador</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="admin-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('admin.password') }}">
+              <i class="bi bi-circle"></i><span>Alterar Senha Admin</span>
+            </a>
+          </li>
+        </ul>
+      </li>  --}}
 
       {{--  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">

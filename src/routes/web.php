@@ -8,6 +8,9 @@ use App\Http\Controllers\ClassificacaoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PdvController;
+use App\Http\Controllers\VendaController;
+use App\Http\Controllers\TipoPagamentoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +36,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('produtos', ProdutoController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('clientes', ClienteController::class);
+    Route::resource('tipos-pagamento', TipoPagamentoController::class);
+    Route::get('pdv', [PdvController::class, 'index'])->name('pdv.index');
+    Route::post('pdv/buscar-produto', [PdvController::class, 'buscarProduto'])->name('pdv.buscar-produto');
+    Route::post('pdv/finalizar-venda', [PdvController::class, 'finalizarVenda'])->name('pdv.finalizar-venda');
+    Route::get('vendas', [VendaController::class, 'index'])->name('vendas.index');
+    Route::get('vendas/{venda}', [VendaController::class, 'show'])->name('vendas.show');
+    Route::delete('vendas/{venda}', [VendaController::class, 'destroy'])->name('vendas.destroy');
 });
 
 // Route::get('/Home', function () {

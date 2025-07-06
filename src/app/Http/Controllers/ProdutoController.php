@@ -27,6 +27,7 @@ class ProdutoController extends Controller
     public function store(Request $request): JsonResponse
     {
         $request->validate([
+            'codigo' => 'required|string|max:50|unique:produtos,codigo',
             'nome' => 'required|string|max:255',
             'descricao' => 'nullable|string',
             'preco' => 'required|numeric|min:0',
@@ -57,6 +58,7 @@ class ProdutoController extends Controller
     public function update(Request $request, Produto $produto): JsonResponse
     {
         $request->validate([
+            'codigo' => 'required|string|max:50|unique:produtos,codigo,' . $produto->id,
             'nome' => 'required|string|max:255',
             'descricao' => 'nullable|string',
             'preco' => 'required|numeric|min:0',
@@ -84,3 +86,4 @@ class ProdutoController extends Controller
         ]);
     }
 }
+ 

@@ -38,6 +38,7 @@
                 <thead>
                   <tr>
                     <th>ID</th>
+                    <th>Código</th>
                     <th>Nome</th>
                     <th>Categoria</th>
                     <th>Classificação</th>
@@ -47,70 +48,31 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach($produtos as $produto)
                   <tr>
-                    <td>1</td>
-                    <td>Smartphone Galaxy S21</td>
-                    <td>Eletrônicos</td>
-                    <td>Premium</td>
-                    <td>R$ 2.999,00</td>
-                    <td><span class="badge bg-success">Ativo</span></td>
+                    <td>{{ $produto->id }}</td>
+                    <td>{{ $produto->codigo }}</td>
+                    <td>{{ $produto->nome }}</td>
+                    <td>{{ $produto->categoria->nome }}</td>
+                    <td>{{ $produto->classificacao->nome }}</td>
+                    <td>R$ {{ number_format($produto->preco, 2, ',', '.') }}</td>
                     <td>
-                      <button class="btn btn-sm btn-primary" onclick="editarProduto(1, 'Smartphone Galaxy S21', 'Eletrônicos', 'Premium', '2999.00', 'Ativo')">
+                      @if($produto->status == 'Ativo')
+                        <span class="badge bg-success">{{ $produto->status }}</span>
+                      @else
+                        <span class="badge bg-warning">{{ $produto->status }}</span>
+                      @endif
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-primary" onclick="editarProduto({{ $produto->id }}, '{{ $produto->codigo }}', '{{ $produto->nome }}', {{ $produto->categoria_id }}, {{ $produto->classificacao_id }}, {{ $produto->preco }}, '{{ $produto->status }}', '{{ $produto->descricao }}')">
                         <i class="bi bi-pencil"></i>
                       </button>
-                      <button class="btn btn-sm btn-danger" onclick="excluirProduto(1, 'Smartphone Galaxy S21')">
+                      <button class="btn btn-sm btn-danger" onclick="excluirProduto({{ $produto->id }}, '{{ $produto->nome }}')">
                         <i class="bi bi-trash"></i>
                       </button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Camiseta Básica</td>
-                    <td>Vestuário</td>
-                    <td>Standard</td>
-                    <td>R$ 49,90</td>
-                    <td><span class="badge bg-success">Ativo</span></td>
-                    <td>
-                      <button class="btn btn-sm btn-primary" onclick="editarProduto(2, 'Camiseta Básica', 'Vestuário', 'Standard', '49.90', 'Ativo')">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button class="btn btn-sm btn-danger" onclick="excluirProduto(2, 'Camiseta Básica')">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Vaso de Plástico</td>
-                    <td>Casa e Jardim</td>
-                    <td>Econômico</td>
-                    <td>R$ 15,50</td>
-                    <td><span class="badge bg-success">Ativo</span></td>
-                    <td>
-                      <button class="btn btn-sm btn-primary" onclick="editarProduto(3, 'Vaso de Plástico', 'Casa e Jardim', 'Econômico', '15.50', 'Ativo')">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button class="btn btn-sm btn-danger" onclick="excluirProduto(3, 'Vaso de Plástico')">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Notebook Dell Inspiron</td>
-                    <td>Eletrônicos</td>
-                    <td>Premium</td>
-                    <td>R$ 4.500,00</td>
-                    <td><span class="badge bg-warning">Inativo</span></td>
-                    <td>
-                      <button class="btn btn-sm btn-primary" onclick="editarProduto(4, 'Notebook Dell Inspiron', 'Eletrônicos', 'Premium', '4500.00', 'Inativo')">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button class="btn btn-sm btn-danger" onclick="excluirProduto(4, 'Notebook Dell Inspiron')">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -140,19 +102,14 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="nome" class="form-label">Nome *</label>
-                  <input type="text" class="form-control" id="nome" name="nome" required>
+                  <label for="codigo" class="form-label">Código *</label>
+                  <input type="text" class="form-control" id="codigo" name="codigo" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="categoria" class="form-label">Categoria *</label>
-                  <select class="form-select" id="categoria" name="categoria" required>
-                    <option value="">Selecione uma categoria</option>
-                    <option value="Eletrônicos">Eletrônicos</option>
-                    <option value="Vestuário">Vestuário</option>
-                    <option value="Casa e Jardim">Casa e Jardim</option>
-                  </select>
+                  <label for="nome" class="form-label">Nome *</label>
+                  <input type="text" class="form-control" id="nome" name="nome" required>
                 </div>
               </div>
             </div>
@@ -160,15 +117,29 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="classificacao" class="form-label">Classificação *</label>
-                  <select class="form-select" id="classificacao" name="classificacao" required>
-                    <option value="">Selecione uma classificação</option>
-                    <option value="Premium">Premium</option>
-                    <option value="Standard">Standard</option>
-                    <option value="Econômico">Econômico</option>
+                  <label for="categoria" class="form-label">Categoria *</label>
+                  <select class="form-select" id="categoria" name="categoria_id" required>
+                    <option value="">Selecione uma categoria</option>
+                    @foreach($categorias as $categoria)
+                      <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="classificacao" class="form-label">Classificação *</label>
+                  <select class="form-select" id="classificacao" name="classificacao_id" required>
+                    <option value="">Selecione uma classificação</option>
+                    @foreach($classificacoes as $classificacao)
+                      <option value="{{ $classificacao->id }}">{{ $classificacao->nome }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="preco" class="form-label">Preço *</label>
@@ -178,19 +149,20 @@
                   </div>
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select class="form-select" id="status" name="status">
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
+                  </select>
+                </div>
+              </div>
             </div>
             
             <div class="mb-3">
               <label for="descricao" class="form-label">Descrição</label>
               <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
-            </div>
-            
-            <div class="mb-3">
-              <label for="status" class="form-label">Status</label>
-              <select class="form-select" id="status" name="status">
-                <option value="Ativo">Ativo</option>
-                <option value="Inativo">Inativo</option>
-              </select>
             </div>
           </div>
           <div class="modal-footer">
@@ -244,13 +216,15 @@ document.addEventListener('DOMContentLoaded', function() {
         produtoModalInstance.show();
     }
 
-    window.editarProduto = function(id, nome, categoria, classificacao, preco, status) {
+    window.editarProduto = function(id, codigo, nome, categoria_id, classificacao_id, preco, status, descricao) {
         document.getElementById('produto_id').value = id;
+        document.getElementById('codigo').value = codigo;
         document.getElementById('nome').value = nome;
-        document.getElementById('categoria').value = categoria;
-        document.getElementById('classificacao').value = classificacao;
+        document.getElementById('categoria').value = categoria_id;
+        document.getElementById('classificacao').value = classificacao_id;
         document.getElementById('preco').value = preco;
         document.getElementById('status').value = status;
+        document.getElementById('descricao').value = descricao;
         document.getElementById('produtoModalLabel').textContent = `Editar Produto (ID: ${id})`;
         document.getElementById('btnSalvarProduto').textContent = 'Atualizar';
         produtoModalInstance.show();
