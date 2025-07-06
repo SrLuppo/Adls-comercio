@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ClassificacaoController;
+use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +27,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Rotas protegidas
 Route::middleware(['auth'])->group(function () {
     Route::get('/index', [AuthController::class, 'Home'])->name('Home');
+    Route::resource('categorias', CategoriaController::class);
+    Route::resource('classificacoes', ClassificacaoController::class);
+    Route::resource('produtos', ProdutoController::class);
+    Route::resource('usuarios', UsuarioController::class);
 });
 
 // Route::get('/Home', function () {
