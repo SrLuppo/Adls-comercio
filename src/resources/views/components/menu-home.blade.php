@@ -94,22 +94,22 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
+            <a href="{{ route('categorias.index') }}">
               <i class="bi bi-circle"></i><span>Categoria</span>
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="{{ route('classificacoes.index') }}">
               <i class="bi bi-circle"></i><span>Classificação</span>
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
+            <a href="{{ route('produtos.index') }}">
               <i class="bi bi-circle"></i><span>Produtos</span>
             </a>
           </li>
           <li>
-            <a href="forms-validation.html">
+            <a href="{{ route('usuarios.index') }}">
               <i class="bi bi-circle"></i><span>Usuários</span>
             </a>
           </li>
