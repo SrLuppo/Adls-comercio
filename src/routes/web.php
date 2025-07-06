@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClassificacaoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('classificacoes', ClassificacaoController::class);
     Route::resource('produtos', ProdutoController::class);
     Route::resource('usuarios', UsuarioController::class);
+    Route::resource('clientes', ClienteController::class);
 });
 
 // Route::get('/Home', function () {

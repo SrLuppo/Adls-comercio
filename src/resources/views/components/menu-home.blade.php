@@ -104,6 +104,11 @@
             </a>
           </li>
           <li>
+            <a href="{{ route('clientes.index') }}">
+              <i class="bi bi-circle"></i><span>Clientes</span>
+            </a>
+          </li>
+          <li>
             <a href="{{ route('produtos.index') }}">
               <i class="bi bi-circle"></i><span>Produtos</span>
             </a>
@@ -115,6 +120,13 @@
           </li>
         </ul>
       </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-cash-coin"></i>
+          <span>Vendas</span>
+        </a>
+      </li>
 
       {{--  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
